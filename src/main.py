@@ -23,7 +23,7 @@ def publish_notification(content, title, priority, tags):
     
 
 def notify():
-    publish_notification(content="Remote access to phils-laptop detected. Act right away!", priority="urgent", title="Remote Access Detected", tags="warning,explosion")
+    publish_notification(content="Remote access to phils-laptop detected. Act right away!", priority="urgent", title="Remote Access Detected", tags="warning,skull")
      
 
 def main():
