@@ -1,7 +1,7 @@
 # pentagon-pizza-party
 impending geopolitical conflict can be predicted via the pentagon pizza index. this tool repeatedly polls the nearby dominos and notifies you if activity is higher than usual.
 
-### Usage
+### Installation
 You can run this yourself - you just need three things!
 
 - Python3
@@ -25,3 +25,6 @@ echo 'NTFY_URL=xxx' | tee -a .env
 
 Now you can enjoy getting ahead of the curve on world events!
 
+```sh
+python3 main.py
+```
