@@ -26,7 +26,7 @@ echo 'NTFY_URL=xxx' | tee -a .env
 Now you can enjoy getting ahead of the curve on world events! Keep in mind that the GCP Places API allows **up to 10000** free API calls per month, so be sure to watch your usage if you're running this script on a schedule.
 
 ```sh
-python3 main.py
+python3 pentagonPizzaParty.py
 ```
 
 ### To Do
