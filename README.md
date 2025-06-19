@@ -22,7 +22,7 @@ cd pentagon-pizza-party
 echo 'GCP_API_KEY=xxx' | tee -a .env
 echo 'NTFY_URL=xxx' | tee -a .env
 ```
-
+### Usage
 Now you can enjoy getting ahead of the curve on world events!
 
 ```sh
