@@ -23,8 +23,11 @@ echo 'GCP_API_KEY=xxx' | tee -a .env
 echo 'NTFY_URL=xxx' | tee -a .env
 ```
 ### Usage
-Now you can enjoy getting ahead of the curve on world events!
+Now you can enjoy getting ahead of the curve on world events! Keep in mind that the GCP Places API allows **up to 10000** free API calls per month, so be sure to watch your usage if you're running this script on a schedule.
 
 ```sh
 python3 main.py
 ```
+
+### To Do
+I'm thinking of adding support for more locations (such as Freddie's Beach Bar), as well as tiered notifications based off the severity of activity spikes (urgent, mild etc). 
