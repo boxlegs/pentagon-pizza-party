@@ -1,5 +1,5 @@
 # Pentagon Pizza Party
-impending geopolitical conflict can be predicted via the pentagon pizza index. this tool repeatedly polls the nearby dominos and notifies you if activity is higher than usual.
+impending geopolitical conflict can be predicted via the pentagon pizza index. this tool polls the nearby dominos and notifies you if activity is higher than usual.
 
 ### Installation
 You can run this yourself - you just need three things!
