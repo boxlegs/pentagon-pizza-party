@@ -9,10 +9,10 @@ import sys
 load_dotenv() 
 
 GCP_API_KEY = os.getenv('GCP_API_KEY')
-NTFY_URL = os.getenv('NTFY_URL') # Endpoint e.g. https://ntfy.sh/pentagon
+NTFY_URL = os.getenv('NTFY_URL', 'https://ntfy.sh/pentagon') # Endpoint e.g. https://ntfy.sh/pentagon
 ANOMALY_THRESHOLD = float(os.getenv('THRESHOLD', 1.5)) # Default threshold is 1.5x
-PLACE_ID =  "ChIJI6ACK7q2t4kRFcPtFhUuYhU" # Domino's Pizza, 2602 Columbia Pike, Arlington, VA
-
+PLACE_ID =  os.getenv('PLACE_ID', "ChIJI6ACK7q2t4kRFcPtFhUuYhU") # Domino's Pizza, 2602 Columbia Pike, Arlington, VA
+STATE_FILE = os.getenv('STATE_FILE', '.dominos_state') # File to store state, e.g. if a notification was sent
 
 def get_dominos_data():
     
@@ -39,7 +39,20 @@ def publish_notification(content, title, priority, tags):
     })
     if req.status_code != 200:
         print(f"Failed to send notification: {req.status_code} - {req.text}")
+
+def get_previous_state():
+    if not os.path.exists(STATE_FILE):
+        return None
     
+    with open(STATE_FILE, 'r') as f:
+        state = f.read().strip()
+    
+    return state
+
+def set_current_state(state):
+    with open(STATE_FILE, 'w') as f:
+        f.write(state)
+    print(f"State set to: {state}")
 
 def main():
     
@@ -68,17 +81,27 @@ def main():
     print(f"Current popularity: {current_popularity}, Regular popularity: {regular_popularity}")
     
     if current_popularity/regular_popularity > ANOMALY_THRESHOLD:
-        print("High activity detected, sending notification...")
-        content = f"Massive spike in Domino's activity at " + \
-        f"{current_hour % 12}{'PM' if current_hour >= 12 else 'AM'} by a factor of {current_popularity/regular_popularity:.1f}.\n" + \
-        f"Current business is reading {current_popularity}, compared to average activity of {regular_popularity}.\n\n{'Shit is about to get variably real.' if current_popularity/regular_popularity > 2 else ''}"
         
-        publish_notification(content=content, # Feel free to edit yourself
-            title="MASSIVE ACTIVITY DETECTED at the Pentagon Domino's", 
-            priority="urgent", 
-            tags="biohazard,pizza")
+        print("High activity detected!")
+        if get_previous_state() != "NOTIFIED": # Only notify on activity rising edge
+            print("Sending notification...")
+            content = f"Massive spike in Domino's activity at " + \
+            f"{current_hour % 12}{'PM' if current_hour >= 12 else 'AM'} by a factor of {current_popularity/regular_popularity:.1f}.\n" + \
+            f"Current business is reading {current_popularity}, compared to average activity of {regular_popularity}.\n\n{'Shit is about to get variably real.' if current_popularity/regular_popularity > 2 else ''}"
+            
+            publish_notification(content=content, # Feel free to edit yourself
+                title="MASSIVE ACTIVITY DETECTED at the Pentagon Domino's", 
+                priority="urgent", 
+                tags="biohazard,pizza")
+            
+            set_current_state("NOTIFIED")
+        else:
+            print("Notification already sent. Skipping until next rising edge...")
+    else:
+        set_current_state("")
 
     return
     
 if __name__ == "__main__":
    main()
+   
