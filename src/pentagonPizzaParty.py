@@ -18,9 +18,12 @@ def get_dominos_data():
     
     # Get current time for comparison
     data = populartimes.get_id(GCP_API_KEY, PLACE_ID)
+    if data.response.status_code != 200:
+        print(f"Failed to fetch data: {data.response.status_code} - {data.response.text}")
+        exit(1)
     if "current_popularity" not in data.keys():
-        print("ERROR: Current popularity data is unavailable - Domino's is closed!")
-        exit(2)
+        print("Current popularity data is unavailable - Domino's is closed!")
+        exit(0)
     
     return data
 
