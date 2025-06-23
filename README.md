@@ -6,7 +6,7 @@ You can run this yourself - you just need three things!
 
 - Python3
 - A GCP Places API key
-- A `ntfy.sh` server to point to!
+- A [ntfy.sh](https://ntfy.sh/) server to point to!
 
 Begin by installing the [populartimes](https://github.com/m-wrzr/populartimes/tree/master) package by `m-wzr`. This wraps the Places API, allowing us to cut out most (if not all) of the legwork.
 
