@@ -19,6 +19,7 @@ Then simply clone the repo, populate the `GCP_ACP_KEY` and `NTFY_URL` environmen
 ```
 git clone https://github.com/boxlegs/pentagonPizzaParty.git
 cd pentagon-pizza-party
+pip install -r requirements.txt
 echo 'GCP_API_KEY=xxx' | tee -a .env
 echo 'NTFY_URL=xxx' | tee -a .env
 ```
